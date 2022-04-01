@@ -11,7 +11,9 @@ const findById = async (req, response) => {
 
   const products = await Products.findById(id);
 
-  if (!products) return response.status(404).json({ message: 'Product not found' });
+  if (products === undefined || products.length === 0) {
+    return response.status(404).json({ message: 'Product not found' });
+  }
 
   response.status(200).json(products);
 };

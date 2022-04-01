@@ -11,7 +11,7 @@ const findById = async (id) => {
   const query = 'SELECT id, name, quantity FROM products WHERE id=?;';
   const [productData] = await connection.execute(query, [id]);
 
-  return productData[0];
+  return productData;
 };
 
 module.exports = {

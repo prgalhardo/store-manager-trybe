@@ -9,7 +9,7 @@ const getAll = async () => {
 };
 
 const findById = async (id) => {
-  const productData = await Product.findById(id);
+  const [productData] = await Product.findById(id);
 
   return productData;
 };
