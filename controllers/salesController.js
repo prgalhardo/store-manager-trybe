@@ -18,7 +18,16 @@ const findById = async (req, response) => {
   response.status(200).json(sales);
 };
 
+const createNewSale = async (req, response) => {
+  try {
+    const newSale = await Sales.createNewSale(req.body);
+    return response.status(201).json(newSale);
+  } catch (err) {
+    return response.status(409).json(err.message);
+  } 
+};
 module.exports = {
   getAll,
   findById,
+  createNewSale,
 };

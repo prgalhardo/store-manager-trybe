@@ -1,26 +1,24 @@
 const error = (status, message) => ({ status, message });
 
-// O retorno é um array, vai ser necessário fazer um forEach():
-
-const validateProductId = async (productId) => {
+const validateProductId = (productId) => {
+  console.log(productId);
   if (!productId) throw error(400, '"productId" is required');
 };
 
 const validateQuantity = (quantityOfSale) => {
+  console.log(quantityOfSale);
   if (quantityOfSale === undefined) throw error(400, '"quantity" is required');
-  if (quantityOfSale <= 0) throw error(422, '"quantity" must be greater than or equal to 1');
+  if (Number(quantityOfSale) <= 0) {
+    throw error(422, '"quantity" must be greater than or equal to 1');
+  }
 };
 
-const validateSalesMiddleware = async (req, res, next) => {
-  const { productId, quantity } = req.body;
-  const productIdAndQuantity = [
-    { valueOfProductId: productId, 
-      valueOfQuantity: quantity },
-    ];
-  productIdAndQuantity.forEach(({ valueOfProductId, valueOfQuantity }) => {
+const validateSalesMiddleware = (req, res, next) => {
+  const { body } = req;
+  body.forEach(({ productId, quantity }) => {
     try {
-      validateProductId(valueOfProductId);
-      validateQuantity(valueOfQuantity);
+      validateProductId(productId);
+      validateQuantity(quantity);
       next();
     } catch (err) {
       res.status(err.status).json({ message: err.message });

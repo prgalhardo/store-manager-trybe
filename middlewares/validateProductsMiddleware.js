@@ -14,7 +14,7 @@ const validateQuantity = (quantityOfProduct) => {
   if (quantityOfProduct <= 0) throw error(422, '"quantity" must be greater than or equal to 1');
 };
 
-const validateProductsMiddleware = async (req, res, next) => {
+const validateProductsMiddleware = (req, res, next) => {
   const { name, quantity } = req.body;
 
   try {
