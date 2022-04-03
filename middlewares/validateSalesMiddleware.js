@@ -13,14 +13,19 @@ const validateQuantity = (quantityOfSale) => {
 
 const validateSalesMiddleware = async (req, res, next) => {
   const { productId, quantity } = req.body;
-
-  try {
-    validateProductId(productId);
-    validateQuantity(quantity);
-    next();
-  } catch (err) {
-    res.status(err.status).json({ message: err.message });
-  }
+  const productIdAndQuantity = [
+    { valueOfProductId: productId, 
+      valueOfQuantity: quantity },
+    ];
+  productIdAndQuantity.forEach(({ valueOfProductId, valueOfQuantity }) => {
+    try {
+      validateProductId(valueOfProductId);
+      validateQuantity(valueOfQuantity);
+      next();
+    } catch (err) {
+      res.status(err.status).json({ message: err.message });
+    }
+  });
 };
 
 module.exports = {

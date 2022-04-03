@@ -6,8 +6,12 @@ const validateProducts = require('../middlewares/validateProductsMiddleware');
 
 router.get('/', Products.getAll);
 router.get('/:id', Products.findById);
-router.post('/', validateProducts.validateProductsMiddleware, validateProducts.validateEqualNames);
+router.post('/', 
+validateProducts.validateProductsMiddleware, 
+validateProducts.validateEqualNames, 
+Products.createNewProduct);
 router.put('/:id', 
-  validateProducts.validateProductsMiddleware, validateProducts.validateEqualNames);
+  validateProducts.validateProductsMiddleware, 
+  validateProducts.validateEqualNames);
 
 module.exports = router;

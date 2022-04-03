@@ -14,7 +14,14 @@ const findById = async (id) => {
   return productData;
 };
 
+const createNewProduct = async ({ name, quantity }) => {
+  const query = 'INSERT INTO products (name, quantity) VALUES (?,?);';
+  const [newProduct] = await connection.execute(query, [name, quantity]);
+  return { id: newProduct.insertId, name, quantity };
+};
+
 module.exports = {
   getAll,
   findById,
+  createNewProduct,
 };
