@@ -19,14 +19,13 @@ const findById = async (id) => {
 };
 
 const createNewSale = async (sales) => {
-  // const itemsOfSale = [];
   const [queryOfSales] = await connection.execute(
     'INSERT INTO sales (date) VALUES (NOW());',
   );
   const queryOfSalesProduct = `INSERT INTO sales_products
    (sale_id, product_id, quantity) VALUES (?,?,?)`;
-  // Fazendo o map no connection ele vai criar um array de promises.
-  // Agradecimento a Pedro Mendes, turma 16A.
+   // Agradecimento a Pedro Mendes, turma 16A.
+  // O map no connection vai criar um array de promises.
   const allSales = sales.map(({ productId, quantity }) =>
     connection.execute(queryOfSalesProduct, [
       queryOfSales.insertId,
@@ -38,8 +37,18 @@ const createNewSale = async (sales) => {
   return { id: queryOfSales.insertId, itemsSold: sales };
 };
 
+const updateSale = async (saleId, sales) => {
+  const queryOfUpdateSale = `UPDATE sales_products
+   SET quantity=? WHERE sale_id=? AND product_id=?`;
+  const saleUpdate = sales.map(({ productId, quantity }) => 
+    connection.execute(queryOfUpdateSale, [quantity, saleId, productId]));
+  await Promise.all(saleUpdate);
+  return { saleId, itemUpdated: sales };
+};
+
 module.exports = {
   getAll,
   findById,
   createNewSale,
+  updateSale,
 };

@@ -10,6 +10,7 @@ router.post('/',
 validateSales.validateSalesMiddleware,
 Sales.createNewSale);
 router.put('/:id', 
-validateSales.validateSalesMiddleware);
+validateSales.validateSalesMiddleware,
+Sales.updateSale);
 
 module.exports = router;

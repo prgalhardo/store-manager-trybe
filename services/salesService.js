@@ -17,8 +17,14 @@ const createNewSale = async (sales) => {
     return newSale;
 };
 
+const updateSale = async (saleId, sales) => {
+  const saleUpdate = await Sale.updateSale(saleId, sales);
+  return saleUpdate;
+};
+
 module.exports = {
   getAll,
   findById,
   createNewSale,
+  updateSale,
 };
