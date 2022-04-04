@@ -19,13 +19,14 @@ const findById = async (req, response) => {
 };
 
 const createNewSale = async (req, response) => {
-  try {
+  // try {
     const newSale = await Sales.createNewSale(req.body);
     return response.status(201).json(newSale);
-  } catch (err) {
-    return response.status(409).json(err.message);
-  } 
+  // } catch (err) {
+  //   return response.status(409).json({ message: err.message });
+  // } 
 };
+
 module.exports = {
   getAll,
   findById,

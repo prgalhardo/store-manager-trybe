@@ -22,7 +22,7 @@ const validateProductsMiddleware = (req, res, next) => {
     validateQuantity(quantity);
     next();
   } catch (err) {
-    res.status(err.status).json({ message: err.message });
+    return res.status(err.status).json({ message: err.message });
   }
 };
 

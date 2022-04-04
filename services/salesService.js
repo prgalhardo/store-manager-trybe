@@ -13,12 +13,8 @@ const findById = async (id) => {
 };
 
 const createNewSale = async (sales) => {
-  try {
     const newSale = await Sale.createNewSale(sales);
     return newSale;
-  } catch (error) {
-    return new Error({ message: 'Sale not found' });
-  }
 };
 
 module.exports = {

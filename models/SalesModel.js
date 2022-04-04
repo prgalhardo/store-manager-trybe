@@ -19,15 +19,23 @@ const findById = async (id) => {
 };
 
 const createNewSale = async (sales) => {
-  const itemsOfSale = [];
-  const [queryOfSales] = 'INSERT INTO sales (date) VALUES (NOW());';
-  const [queryOfSalesProduct] = `INSERT INTO sales_products
+  // const itemsOfSale = [];
+  const [queryOfSales] = await connection.execute(
+    'INSERT INTO sales (date) VALUES (NOW());',
+  );
+  const queryOfSalesProduct = `INSERT INTO sales_products
    (sale_id, product_id, quantity) VALUES (?,?,?)`;
-  await sales.forEach(({ productId, quantity }) => {
-    connection.execute(queryOfSalesProduct, [queryOfSales.insertId, productId, quantity]);
-    itemsOfSale.push({ productId, quantity });
-  });
-  return { id: queryOfSales.insertId, itemsSold: itemsOfSale };
+  // Fazendo o map no connection ele vai criar um array de promises.
+  // Agradecimento a Pedro Mendes, turma 16A.
+  const allSales = sales.map(({ productId, quantity }) =>
+    connection.execute(queryOfSalesProduct, [
+      queryOfSales.insertId,
+      productId,
+      quantity,
+    ]));
+  // Promise.all é uma função que vai pegar um array de promises e executar.
+  await Promise.all(allSales);
+  return { id: queryOfSales.insertId, itemsSold: sales };
 };
 
 module.exports = {
