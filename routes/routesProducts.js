@@ -12,6 +12,7 @@ validateProducts.validateEqualNames,
 Products.createNewProduct);
 router.put('/:id', 
   validateProducts.validateProductsMiddleware, 
-  validateProducts.validateEqualNames);
+  validateProducts.validateEqualNames,
+  Products.updateProduct);
 
 module.exports = router;

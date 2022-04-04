@@ -24,12 +24,24 @@ const createNewProduct = async (req, response) => {
     const newProduct = await Products.createNewProduct({ name, quantity });
     return response.status(201).json(newProduct);
   } catch (err) {
-    return response.status(409).json(err.message);
+    return response.status(409).json({ message: err.message });
   } 
+};
+
+const updateProduct = async (req, response) => {
+  try {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+    const productUpdate = await Products.updateProduct({ id, name, quantity });
+    return response.status(200).json(productUpdate);
+  } catch (err) {
+    return response.status(404).json({ message: err.message });
+  }
 };
 
 module.exports = {
   getAll,
   findById,
   createNewProduct,
+  updateProduct,
 };

@@ -19,12 +19,21 @@ const createNewProduct = async ({ name, quantity }) => {
     const newProduct = await Product.createNewProduct({ name, quantity });
     return newProduct;
   } catch (error) {
-    return new Error({ message: 'Product already exists' });
+    return new Error('Product already exists');
   }
+};
+
+const updateProduct = async ({ id, name, quantity }) => {
+    const verifyId = await findById(id);
+    if (verifyId === undefined) throw Error('Product not found');
+
+    await Product.updateProduct({ id, name, quantity });
+    return { id, name, quantity };
 };
 
 module.exports = {
   getAll,
   findById,
   createNewProduct,
+  updateProduct,
 };
