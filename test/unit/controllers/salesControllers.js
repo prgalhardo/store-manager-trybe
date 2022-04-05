@@ -14,7 +14,7 @@ describe('SalesController', () => {
         const req = {};
         const res = {};
         before(() => {
-          res.status = sinon.stub(res);
+          res.status = sinon.stub().returns(res);
           res.json = sinon.stub();
 
           sinon.stub(SalesService, 'getAll').resolves(salesMock.empty);
@@ -28,7 +28,7 @@ describe('SalesController', () => {
         });
       });
 
-      
+
     });
 
 })
