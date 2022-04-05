@@ -4,7 +4,7 @@ const getAll = async (req, response) => {
   const products = await Products.getAll();
 
   response.status(200).json(products);
-};
+};0
 
 const findById = async (req, response) => {
   const { id } = req.params;

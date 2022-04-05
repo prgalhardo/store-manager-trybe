@@ -6,7 +6,9 @@ const ProductsModel = require('../../../models/ProductsModel');
 const productsMock = require('../mocks/productsMock');
 
 describe('ProductsModel', () => {
+
   describe('getAll', () => {
+
     describe('Quando a tabela `products` retornar vazia', () => {
       before(() => {
         sinon.stub(connection, 'execute').resolves([productsMock.empty]);
@@ -19,6 +21,7 @@ describe('ProductsModel', () => {
         expect(products).to.be.deep.eq(productsMock.empty);
         });
       });
+
     describe('Quando a tabela `products` retornar uma lista de produtos', () => {
       before(() => {
         sinon.stub(connection, 'execute').resolves([productsMock.full]);
