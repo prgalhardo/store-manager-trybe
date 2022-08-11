@@ -27,8 +27,5 @@ describe('SalesController', () => {
           expect(res.json.calledWith(salesMock.empty)).to.be.true;
         });
       });
-
-
     });
-
-})
+});
